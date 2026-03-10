@@ -64,7 +64,12 @@ export const githubSlugifier: ISlugifier = new class implements ISlugifier {
 	}
 
 	fromFragment(fragmentText: string): ISlug {
-		return new GithubSlug(fragmentText.toLowerCase());
+		const slugifiedFragment = fragmentText.trim()
+			.toLowerCase()
+			.replace(githubSlugReplaceRegex, '')
+			.replace(/\s/g, '-');
+
+		return new GithubSlug(slugifiedFragment);
 	}
 
 	createBuilder() {
